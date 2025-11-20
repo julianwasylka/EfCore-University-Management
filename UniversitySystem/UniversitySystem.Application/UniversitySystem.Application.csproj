@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UniversitySystem.Domain\UniversitySystem.Domain.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.22" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <ProjectReference Include="..\UniversitySystem.Domain\UniversitySystem.Domain.csproj" />
   </ItemGroup>
 
 </Project>
