@@ -11,6 +11,8 @@
         public Wydzial Wydzial { get; set; } = null!;
 
         public ICollection<Zapis> Zapisy { get; set; } = new List<Zapis>();
+        public int ProwadzacyId { get; set; } 
+        public Profesor Prowadzacy { get; set; } = null!;
 
         // Self-referencing: Wymagania wstępne
         public ICollection<Kurs> Wymagania { get; set; } = new List<Kurs>();

@@ -36,7 +36,7 @@ namespace UniversitySystem.Infrastructure
                 // TPH domyślnie
             });
 
-            modelBuilder.Entity<StudentStudiowMagisterskich>(entity =>
+            modelBuilder.Entity<StudentMagisterski>(entity =>
             {
                 entity.HasOne(e => e.Promotor)
                       .WithMany(p => p.Seminarzysci)
@@ -67,6 +67,12 @@ namespace UniversitySystem.Infrastructure
                       .WithMany(k => k.Zapisy)
                       .HasForeignKey(e => e.KursId);
             });
+
+            modelBuilder.Entity<Kurs>()
+                .HasOne(k => k.Prowadzacy)
+                .WithMany(p => p.ProwadzoneKursy)
+                .HasForeignKey(k => k.ProwadzacyId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Kurs>()
                 .HasMany(k => k.Wymagania)

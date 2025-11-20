@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversitySystem.Infrastructure;
 
@@ -11,9 +12,11 @@ using UniversitySystem.Infrastructure;
 namespace UniversitySystem.Infrastructure.Migrations
 {
     [DbContext(typeof(UniversityDbContext))]
-    partial class UniversityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251120163030_AddProwadzacyId")]
+    partial class AddProwadzacyId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,7 +225,7 @@ namespace UniversitySystem.Infrastructure.Migrations
                     b.ToTable("Zapisy");
                 });
 
-            modelBuilder.Entity("UniversitySystem.Domain.StudentMagisterski", b =>
+            modelBuilder.Entity("UniversitySystem.Domain.StudentStudiowMagisterskich", b =>
                 {
                     b.HasBaseType("UniversitySystem.Domain.Student");
 
@@ -235,7 +238,7 @@ namespace UniversitySystem.Infrastructure.Migrations
 
                     b.HasIndex("PromotorId");
 
-                    b.HasDiscriminator().HasValue("StudentMagisterski");
+                    b.HasDiscriminator().HasValue("StudentStudiowMagisterskich");
                 });
 
             modelBuilder.Entity("KursKurs", b =>
@@ -364,7 +367,7 @@ namespace UniversitySystem.Infrastructure.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("UniversitySystem.Domain.StudentMagisterski", b =>
+            modelBuilder.Entity("UniversitySystem.Domain.StudentStudiowMagisterskich", b =>
                 {
                     b.HasOne("UniversitySystem.Domain.Profesor", "Promotor")
                         .WithMany("Seminarzysci")

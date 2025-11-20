@@ -17,14 +17,15 @@ namespace UniversitySystem.Application
                 .AsNoTracking()
                 .Select(p => new
                 {
-                    ImieNazwisko = p.Imie + " " + p.Nazwisko,
-                    LiczbaStudentow = p.Seminarzysci.Count()
+                    ImieNazwisko = p.TytulNaukowy + " " + p.Imie + " " + p.Nazwisko,
+                    LiczbaStudentow = p.ProwadzoneKursy.SelectMany(k => k.Zapisy).Count()
                 })
                 .OrderByDescending(x => x.LiczbaStudentow)
                 .FirstOrDefault();
 
             if (topProfesor == null) return "Brak danych.";
-            return $"{topProfesor.ImieNazwisko} (Seminarzystów: {topProfesor.LiczbaStudentow})";
+
+            return $"{topProfesor.ImieNazwisko} (Studentów na wykładach: {topProfesor.LiczbaStudentow})";
         }
 
         public List<KursStatystykaDto> PobierzStatystykiWydzialu(string nazwaWydzialu)

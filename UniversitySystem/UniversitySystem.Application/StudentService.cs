@@ -96,5 +96,45 @@ namespace UniversitySystem.Application
                 .Include(s => s.Zapisy)
                 .ToList();
         }
+        public StudentMagisterski DodajMagistranta(string imie, string nazwisko, int rok, Adres adres, string temat, int promotorId)
+        {
+            using var transaction = _context.Database.BeginTransaction();
+            try
+            {
+                var licznik = _context.LicznikiIndeksow.FirstOrDefault(x => x.Prefix == PREFIX_STUDENTA);
+
+                if (licznik == null)
+                {
+                    licznik = new LicznikIndeksow { Prefix = PREFIX_STUDENTA, AktualnaWartosc = 0 };
+                    _context.LicznikiIndeksow.Add(licznik);
+                }
+                if (licznik.AktualnaWartosc == 0) licznik.AktualnaWartosc = 1000;
+
+                licznik.AktualnaWartosc++;
+                var nowyIndeks = $"{PREFIX_STUDENTA}{licznik.AktualnaWartosc}";
+
+                var magistrant = new StudentMagisterski
+                {
+                    Imie = imie,
+                    Nazwisko = nazwisko,
+                    RokStudiow = rok,
+                    AdresZamieszkania = adres,
+                    IndeksUczelniany = nowyIndeks,
+                    TematPracyDyplomowej = temat,
+                    PromotorId = promotorId
+                };
+
+                _context.Studenci.Add(magistrant);
+
+                _context.SaveChanges();
+                transaction.Commit();
+
+                return magistrant;
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }

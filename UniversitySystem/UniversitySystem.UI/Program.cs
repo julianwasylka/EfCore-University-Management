@@ -12,7 +12,7 @@ builder.ConfigureLogging(logging =>
 {
     logging.ClearProviders();
     logging.AddConsole();
-    logging.SetMinimumLevel(LogLevel.Warning);
+    logging.SetMinimumLevel(LogLevel.Error);
 });
 
 builder.ConfigureServices((context, services) =>
@@ -26,7 +26,9 @@ builder.ConfigureServices((context, services) =>
         provider.GetRequiredService<UniversityDbContext>());
 
     services.AddScoped<IStudentService, StudentService>();
-    services.AddScoped<IReportService, ReportService>();
+    services.AddScoped<IReportService, ReportService>(); 
+    services.AddScoped<IPrefixManagerService, PrefixManagerService>();
+    services.AddScoped<IProfessorService, ProfessorService>();
     services.AddTransient<DataSeeder>();
 });
 
@@ -109,8 +111,8 @@ using (var scope = host.Services.CreateScope())
                 Console.WriteLine("\n--- TOP PROFESOR ---");
                 Console.WriteLine(reportService.PobierzTopProfesora());
 
-                Console.WriteLine("\n--- GPA ETI ---");
-                var statystyki = reportService.PobierzStatystykiWydzialu("ETI");
+                Console.WriteLine("\n--- GPA WETI ---");
+                var statystyki = reportService.PobierzStatystykiWydzialu("WETI");
                 foreach (var st in statystyki) Console.WriteLine($"{st.NazwaKursu}: GPA {st.SredniaOcena:F2} ({st.LiczbaOcen} ocen)");
 
                 Console.WriteLine("\n--- NAJTRUDNIEJSZY PLAN ---");

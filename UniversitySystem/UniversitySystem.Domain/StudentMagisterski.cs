@@ -1,6 +1,6 @@
 ﻿namespace UniversitySystem.Domain
 {
-    public class StudentStudiowMagisterskich : Student
+    public class StudentMagisterski : Student
     {
         public string TematPracyDyplomowej { get; set; } = string.Empty;
 

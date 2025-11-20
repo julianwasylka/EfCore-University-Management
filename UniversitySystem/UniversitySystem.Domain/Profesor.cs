@@ -10,6 +10,7 @@
 
         public Adres AdresZamieszkania { get; set; } = null!; // Owned Entity
         public Gabinet? Gabinet { get; set; }
-        public ICollection<StudentStudiowMagisterskich> Seminarzysci { get; set; } = new List<StudentStudiowMagisterskich>();
+        public ICollection<Kurs> ProwadzoneKursy { get; set; } = new List<Kurs>();
+        public ICollection<StudentMagisterski> Seminarzysci { get; set; } = new List<StudentMagisterski>();
     }
 }
